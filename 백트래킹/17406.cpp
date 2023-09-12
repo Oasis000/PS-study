@@ -10,40 +10,41 @@ int n, m;
 
 vector<vector<int>> spin(vector<vector<int>>vec, int route_index) {
 	int i, j, c; 
-	vector<int> save;
 	vector<vector<int>> v(vec); //벡터 얕은복사
 	c = route[route_index][2];
 	i = route[route_index][0] - c - 1; j = route[route_index][1] - c - 1;
-	c = c * 2 + 1;
+	c = c * 2;
 
-	cout << "before spin : " << endl;
+	/*cout << "before spin : " << endl;
 	cout << i << ' ' << j << ' ' << c << endl;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
-			cout << vec[i][j] << ' ';
+			cout << v[i][j] << ' ';
 		}
 		cout << endl;
-	}
+	}*/
 
 	while (c > 1) {
-		for(int index = j; index < j + c - 1; index++) {
+		vector<int> save;
+
+		for(int index = j; index < j + c; index++) {
 			//값을 담아준다.
 			save.push_back(v[i][index]);
 		}
-		for (int index = i; index < i + c - 1; index++) {
+		for (int index = i; index < i + c; index++) {
 			save.push_back(v[index][j + c]);
 		}
-		for (int index = j + c - 1; index > j; index--) {
+		for (int index = j + c; index > j; index--) {
 			save.push_back(v[i + c][index]);
 		}
-		for (int index = i + c - 1; index > i; index--) {
+		for (int index = i + c; index > i; index--) {
 			save.push_back(v[index][j]);
 		}
 		//다시 넣어준다.
 		int save_index = 0;
 		
-		for (int i = 0; i < save.size(); i++) cout << save[i] << ' ';
-		cout << endl;
+		/*for (int i = 0; i < save.size(); i++) cout << save[i] << ' ';
+		cout << endl;*/
 
 		v[i][j] = save[save.size() - 1];
 		save.pop_back();
@@ -62,14 +63,14 @@ vector<vector<int>> spin(vector<vector<int>>vec, int route_index) {
 		}
 		i++; j++; c = c - 2;
 	}
-	cout << "after " << endl;
+	//cout << "after " << endl;
 
-	for (int i = 0; i < n; i++) {
+	/*for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
 			cout << v[i][j] << ' ';
 		}
 		cout << endl;
-	}
+	}*/
 
 	return v;
 }
@@ -84,8 +85,10 @@ void dfs(int count, int k, vector<vector<int>>v) {
 			}
 			if (ans > sum) ans = sum;
 		}
+		return;
 	}
-	for (int i = 0; i < k && check[i] == false; i++) { //방문하지 않은 경우 방문해본다.
+	for (int i = 0; i < k; i++) { //방문하지 않은 경우 방문해본다. // ;탈출조건;
+		if (check[i] == true) continue;
 		check[i] = true;
 		dfs(count + 1, k, spin(v, i));
 		check[i] = false;
