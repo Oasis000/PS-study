@@ -15,19 +15,10 @@ vector<vector<int>> spin(vector<vector<int>>vec, int route_index) {
 	i = route[route_index][0] - c - 1; j = route[route_index][1] - c - 1;
 	c = c * 2;
 
-	/*cout << "before spin : " << endl;
-	cout << i << ' ' << j << ' ' << c << endl;
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			cout << v[i][j] << ' ';
-		}
-		cout << endl;
-	}*/
-
 	while (c > 1) {
 		vector<int> save;
 
-		for(int index = j; index < j + c; index++) {
+		for (int index = j; index < j + c; index++) {
 			//값을 담아준다.
 			save.push_back(v[i][index]);
 		}
@@ -42,9 +33,6 @@ vector<vector<int>> spin(vector<vector<int>>vec, int route_index) {
 		}
 		//다시 넣어준다.
 		int save_index = 0;
-		
-		/*for (int i = 0; i < save.size(); i++) cout << save[i] << ' ';
-		cout << endl;*/
 
 		v[i][j] = save[save.size() - 1];
 		save.pop_back();
@@ -63,15 +51,6 @@ vector<vector<int>> spin(vector<vector<int>>vec, int route_index) {
 		}
 		i++; j++; c = c - 2;
 	}
-	//cout << "after " << endl;
-
-	/*for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			cout << v[i][j] << ' ';
-		}
-		cout << endl;
-	}*/
-
 	return v;
 }
 
@@ -113,7 +92,6 @@ int main() {
 	for (int i = 0; i < k; i++) {
 		cin >> route[i][0] >> route[i][1] >> route[i][2];
 	}
-
 	dfs(0, k, arr);
 	cout << ans;
 }
