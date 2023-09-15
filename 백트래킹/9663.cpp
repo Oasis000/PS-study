@@ -21,7 +21,8 @@ bool check(int row) {
 
 void dfs(int row) {
 	if (row == n) {
-		ans++; return;
+		ans++; 
+		return;
 	}
 	for (int i = 0; i < n; i++) {
 		//현재 row에서 놓을 수 있는 col체크 후 놓아준다.
