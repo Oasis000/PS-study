@@ -5,17 +5,17 @@
 using namespace std;
 
 const int MAX = 50005;
-vector<vector<pair<int, int>>> arr(MAX); // ¿¬°á Á¤º¸¸¦ ÀúÀåÇÒ ¿¬°á ¸®½ºÆ® 
-priority_queue < pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; // min Á¤º¸¸¦ ÀúÀåÇÒ ¿ì¼±¼øÀ§ Å¥
-int node[MAX][2]; // ¹è¿­ ±¸Á¶ ¼±¾ğ (0: ÃÖ´Ü °Å¸®, 1: ¹æ¹® ¿©ºÎ)
+vector<vector<pair<int, int>>> arr(MAX); // ì—°ê²° ì •ë³´ë¥¼ ì €ì¥í•  ì—°ê²° ë¦¬ìŠ¤íŠ¸ 
+priority_queue < pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; // min ì •ë³´ë¥¼ ì €ì¥í•  ìš°ì„ ìˆœìœ„ í
+int node[MAX][2]; // ë°°ì—´ êµ¬ì¡° ì„ ì–¸ (0: ìµœë‹¨ ê±°ë¦¬, 1: ë°©ë¬¸ ì—¬ë¶€)
 
 int dijkstra(int start, int end) {
-    // ´ÙÀÍ½ºÆ®¶ó ¾Ë°í¸®Áò
+    // ë‹¤ìµìŠ¤íŠ¸ë¼ ì•Œê³ ë¦¬ì¦˜
     for (int i = 1; i < MAX; i++) {
         node[i][0] = INT_MAX;
-        node[i][1] = 0; // ¹æ¹® ¿©ºÎ¸¦ 0À¸·Î ÃÊ±âÈ­
+        node[i][1] = 0; // ë°©ë¬¸ ì—¬ë¶€ë¥¼ 0ìœ¼ë¡œ ì´ˆê¸°í™”
     }
-    // ½ÃÀÛ ³ëµå ¼³Á¤
+    // ì‹œì‘ ë…¸ë“œ ì„¤ì •
     node[start][0] = 0;
     pq.push({ 0, start });
 
@@ -26,9 +26,9 @@ int dijkstra(int start, int end) {
         pq.pop();
 
         if (node[node_num][1]) {
-            continue; // ÀÌ¹Ì ¹æ¹®ÇÑ ³ëµå¸é ½ºÅµ
+            continue; // ì´ë¯¸ ë°©ë¬¸í•œ ë…¸ë“œë©´ ìŠ¤í‚µ
         }
-        node[node_num][1] = 1; // ¹æ¹® Ç¥½Ã
+        node[node_num][1] = 1; // ë°©ë¬¸ í‘œì‹œ
 
         for (int i = 0; i < arr[node_num].size(); i++) {
             pair<int, int> pa = arr[node_num][i];
