@@ -1,5 +1,5 @@
-//ÇÁ±× lv2 °úÁ¦ ÁøÇàÇÏ±â
-//º¹ÀâÇÔ 75 -> 100Á¡ : ÇöÀç½Ã°£ °»½Å ¾ÈÇØÁØ ºÎºĞ ÀÖ¾úÀ½.
+//í”„ê·¸ lv2 ê³¼ì œ ì§„í–‰í•˜ê¸°
+//ë³µì¡í•¨ 75 -> 100ì  : í˜„ì¬ì‹œê°„ ê°±ì‹  ì•ˆí•´ì¤€ ë¶€ë¶„ ìˆì—ˆìŒ.
 
 #include <iostream>
 #include <string>
@@ -8,7 +8,7 @@
 #include<algorithm>
 using namespace std;
 
-//½Ã°£ strÀ» ºĞÀ¸·Î º¯°æÇØÁÖ´Â ÇÔ¼ö
+//ì‹œê°„ strì„ ë¶„ìœ¼ë¡œ ë³€ê²½í•´ì£¼ëŠ” í•¨ìˆ˜
 int change(string str) {
     int h = stoi(str.substr(0, 2));
     int m = stoi(str.substr(3, 2));
@@ -19,7 +19,7 @@ vector<string> solution(vector<vector<string>> plans) {
     vector<vector<int>>vec;
     stack<vector<int>>s;
     int time = 0;
-    //½Ã°£ -> ºĞÀ¸·Î º¯°æ ÈÄ ½Ã°£ ¼ø Á¤·ÄÇÑ´Ù.
+    //ì‹œê°„ -> ë¶„ìœ¼ë¡œ ë³€ê²½ í›„ ì‹œê°„ ìˆœ ì •ë ¬í•œë‹¤.
     for (int i = 0; i < plans.size(); i++) {
         vec.push_back({ change(plans[i][1]),stoi(plans[i][2]), i });
     }
@@ -27,19 +27,19 @@ vector<string> solution(vector<vector<string>> plans) {
 
     int index = 0;
     while (index < plans.size()) {
-        //¸¶Áö¸· °ú¸ñÀÎ °æ¿ì
+        //ë§ˆì§€ë§‰ ê³¼ëª©ì¸ ê²½ìš°
         if (index == plans.size() - 1) {
             answer.push_back(plans[vec[index][2]][0]);
             break;
         }
-        //´ÙÀ½ °úÁ¦°¡ ÀÖ´Ù¸é, °í·Á
+        //ë‹¤ìŒ ê³¼ì œê°€ ìˆë‹¤ë©´, ê³ ë ¤
         while (index + 1 < plans.size()) {
             int next_start_time = vec[index + 1][0];
             int cur_end_time = vec[index][0] + vec[index][1];
             if (next_start_time < cur_end_time) {
-                //´ÙÀ½ °úÁ¦¸¦ ÇØ¾ßÇÏ´Â °æ¿ì ½ºÀ§Ä¡ÇÑ´Ù.
+                //ë‹¤ìŒ ê³¼ì œë¥¼ í•´ì•¼í•˜ëŠ” ê²½ìš° ìŠ¤ìœ„ì¹˜í•œë‹¤.
                 time = next_start_time;
-                //´Ù ¸øÇÑ °úÁ¦¸¦ ½ºÅÃ¿¡ ³Ö¾î ÁÜ.
+                //ë‹¤ ëª»í•œ ê³¼ì œë¥¼ ìŠ¤íƒì— ë„£ì–´ ì¤Œ.
                 s.push({ (cur_end_time - next_start_time), vec[index][2] });
             }
             else {
@@ -50,24 +50,24 @@ vector<string> solution(vector<vector<string>> plans) {
             }
             index++;
         }
-        //Áß°£¿¡ termÀÌ »ı±â´Â °æ¿ì -> ±âÁ¸¿¡ ÇÏ´ø °úÁ¦¸¦ ³¡³½´Ù.
+        //ì¤‘ê°„ì— termì´ ìƒê¸°ëŠ” ê²½ìš° -> ê¸°ì¡´ì— í•˜ë˜ ê³¼ì œë¥¼ ëë‚¸ë‹¤.
         while (!s.empty()) {
             int next_start_time = vec[index][0];
             int left_min = s.top()[0];
-            if (time + left_min > next_start_time) { //°úÁ¦¸¦ ´Ù ¸øÇÔ
+            if (time + left_min > next_start_time) { //ê³¼ì œë¥¼ ë‹¤ ëª»í•¨
                 s.top()[0] = (left_min - (next_start_time - time));
                 break;
             }
-            else { //°úÁ¦¸¦ ´Ù ÇÔ.
+            else { //ê³¼ì œë¥¼ ë‹¤ í•¨.
                 answer.push_back(plans[s.top()[1]][0]);
-                //¿©±âºÎºĞ ¶§¹®¿¡ 75Á¡.
+                //ì—¬ê¸°ë¶€ë¶„ ë•Œë¬¸ì— 75ì .
                 time = time + left_min;
                 s.pop();
             }
         }
 
     }
-    //³²Àº °úÁ¦¸¸ ´Ù ÇÏ¸é µÇ´Â °æ¿ì
+    //ë‚¨ì€ ê³¼ì œë§Œ ë‹¤ í•˜ë©´ ë˜ëŠ” ê²½ìš°
     while (!s.empty()) {
         answer.push_back(plans[s.top()[1]][0]);
         s.pop();
