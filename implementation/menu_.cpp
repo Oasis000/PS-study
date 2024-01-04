@@ -19,17 +19,18 @@ void find(string str, int index, int num) {
     //현 index를 선택하는 경우 or 하지 않는 경우
     if (num == str.length()) {
         if (answer.find(str) == answer.end()) {
-            //모든 str을 검사하여 확인한다?
+            //모든 str을 검사하여 확인한다
             int count = 0;
-            for (int i = 0; i < str.size(); i++) {
-                int b = true;
+
+            for (int i = 0; i < 20; i++) {
+                bool b = true;
                 for (int j = 0; j < str.length(); j++) {
-                    if (arr[i][str[j]] == 0) {
+                    if (arr[i][str[j] - 65] == 0) {
                         b = false;
                         break;
                     }
                 }
-                count++;
+                if (b == true) count++;
             }
 
             answer.insert({ str, count });
@@ -71,8 +72,21 @@ vector<string> solution(vector<string> orders, vector<int> course) {
         }
 
     }
+    int arr[13] = { 0, };
+
     for (auto iter = answer.begin(); iter != answer.end(); iter++) {
-        cout << iter->first << " " << iter->second << endl;
+        string first = iter->first;
+        int second = iter->second;
+        if (arr[first.length()] <= second) {
+            arr[first.length()] = second;
+        }
+    }
+    auto iter = answer.begin();
+    for (int i = 0; i < answer.size(); i++) {
+        if (iter->second == arr[iter->first.length()]) {
+            ans.push_back(iter->first);
+        }
+        iter++;
     }
     return ans;
 }
