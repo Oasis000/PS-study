@@ -11,9 +11,7 @@ int main() {
 
     // 순열로 변경
     while (next_permutation(vec.begin(), vec.end())) {
-        for (int i : vec) { //간단한 반복문
-            std::cout << i << ' ';
-        }
+        cout << "3";
         std::cout << "\n";
     }
 
