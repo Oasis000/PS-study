@@ -1,7 +1,7 @@
-#include <string>
+#include <string> //프그 수식 최대화
 #include <vector>
 #include <iostream>
-#include<math.h>
+#include <math.h>
 #include <algorithm>
 using namespace std;
 typedef long long ll;
@@ -17,34 +17,21 @@ ll operation(char temp, ll a, ll b) {
     return -1;
 }
 ll cal(vector<char>vec, vector<ll> n, vector<char> op) {
-    int fir = vec[0]; int sec = vec[1]; int th = vec[2];
+    int temp = 0;
 
-    while (n.size() != 1) {
-        //first
-        for (int i = 0; i < op.size(); i++) {
+    while (temp < 3) {
+        int fir = vec[temp++];
+        for (int i = 0; i < op.size();) {
             if (op[i] == fir) {
                 n[i] = operation(fir, n[i], n[i + 1]);
-                op.erase(op.begin() + i); //복습
+                op.erase(op.begin() + i); //복습 
                 n.erase(n.begin() + i + 1);
             }
+            else { i++; }   //연산해줄때 vector에서 pop되므로 index가 건너뛰어짐 -> 따라서 index증감문을 따로 처리.
         }
-        //sec
-        for (int i = 0; i < op.size(); i++) {
-            if (op[i] == sec) {
-                n[i] = operation(sec, n[i], n[i + 1]);
-                op.erase(op.begin() + i); //복습
-                n.erase(n.begin() + i + 1);
-            }
-        }
-        //third
-        for (int i = 0; i < op.size(); i++) {
-            if (op[i] == th) {
-                n[i] = operation(th, n[i], n[i + 1]);
-                op.erase(op.begin() + i); //복습
-                n.erase(n.begin() + i + 1);
-            }
-        }
+
     }
+
     return n[0];
 }
 
